@@ -29,8 +29,12 @@
 
   /* ---- top bar ---- */
   .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;opacity:0;animation:rise .5s ease forwards}
-  .brand{display:flex;align-items:center;gap:10px}
-  .bite-logo{width:36px;height:36px;flex:none}
+    .brand{display:flex;align-items:center;gap:14px}
+  .bite-logo{display:inline-flex;font-family:var(--disp);font-size:24px;line-height:1;
+    letter-spacing:-.5px;transform:skewX(-10deg);flex:none}
+  .bite-logo span{display:inline-block}
+  .bite-logo .g{color:var(--egusi)}
+  .bite-logo .k{color:var(--ink)}
   .loc-label{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;display:flex;align-items:center;gap:5px}
   .loc-label svg{width:12px;height:12px;flex:none}
   .loc-name{display:flex;align-items:center;gap:6px;font-family:var(--body);font-weight:700;font-size:17px;margin-top:3px}
@@ -127,12 +131,10 @@
   <section class="screen">
 
     <header class="top">
-      <div class="brand">
-        <svg class="bite-logo" viewBox="0 0 40 40" aria-label="Bite logo">
-          <circle cx="19" cy="20" r="15.5" fill="var(--pepper)" stroke="var(--ink)" stroke-width="2.5"/>
-          <circle cx="30" cy="11" r="9" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.5"/>
-          <circle cx="32.5" cy="22" r="1.8" fill="var(--pepper)" stroke="var(--ink)" stroke-width="1.4"/>
-        </svg>
+            <div class="brand">
+        <div class="bite-logo" aria-label="Bite logo">
+          <span class="g">B</span><span class="k">I</span><span class="g">T</span><span class="k">E</span>
+        </div>
         <div>
           <div class="loc-label">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.4 2 5.5 4.9 5.5 8.5C5.5 13.4 12 21 12 21C12 21 18.5 13.4 18.5 8.5C18.5 4.9 15.6 2 12 2Z"/><circle cx="12" cy="8.5" r="2.3" fill="currentColor" stroke="none"/></svg>
