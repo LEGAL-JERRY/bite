@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bite — Lafia Food Delivery</title>
+<style>
+  *{box-sizing:border-box}
+  :root{
+    --bg:#f7f7f5;--card:#fff;--text:#171717;--muted:#777;
+    --accent:#ff5a36;--line:#ecebe8;--dark:#181818;
+  }
+  body{margin:0;background:#ddd;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text)}
+  .phone{width:min(100%,430px);min-height:100vh;margin:auto;background:var(--bg);overflow:hidden;position:relative}
+  .screen{padding:18px 16px 96px}
+  .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+  .location{font-size:12px;color:var(--muted)}
+  .location strong{display:block;font-size:15px;color:var(--text);margin-top:3px}
+  .icon{width:40px;height:40px;border-radius:50%;background:white;border:1px solid var(--line);display:grid;place-items:center}
+  h1{font-size:27px;line-height:1.05;margin:8px 0 14px;letter-spacing:-1px}
+  .search{height:48px;background:white;border:1px solid var(--line);border-radius:15px;display:flex;align-items:center;gap:10px;padding:0 15px;color:#999}
+  .rail{display:flex;gap:10px;overflow-x:auto;padding:4px 1px 9px;scrollbar-width:none}
+  .rail::-webkit-scrollbar{display:none}
+  .section-head{display:flex;justify-content:space-between;align-items:center;margin:24px 0 11px}
+  .section-head h2{font-size:17px;margin:0}
+  .section-head span{font-size:12px;color:var(--accent)}
+  .cat{min-width:74px;text-align:center}
+  .cat-img{width:68px;height:68px;border-radius:20px;background:#eee;display:grid;place-items:center;font-size:30px;margin:auto}
+  .cat label{font-size:12px;display:block;margin-top:7px}
+  .hero{background:var(--dark);color:white;border-radius:22px;padding:18px;min-width:290px;height:165px;position:relative;overflow:hidden}
+  .hero small{opacity:.65}.hero h3{font-size:24px;max-width:180px;margin:8px 0}
+  .hero button{border:0;background:var(--accent);color:#fff;border-radius:12px;padding:9px 13px;font-weight:700}
+  .hero .emoji{position:absolute;right:-8px;bottom:-20px;font-size:115px}
+  .restaurant{min-width:275px;background:white;border-radius:20px;overflow:hidden;border:1px solid var(--line)}
+  .food-img{height:145px;background:linear-gradient(135deg,#eee,#d8d8d8);display:grid;place-items:center;font-size:80px}
+  .restaurant-info{padding:12px}
+  .restaurant-info h3{margin:0 0 5px;font-size:16px}
+  .meta{font-size:12px;color:var(--muted)}
+  .tag{display:inline-block;background:#fff1ed;color:var(--accent);padding:5px 8px;border-radius:8px;font-size:10px;font-weight:700;margin-top:9px}
+  .bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,430px);height:74px;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:center}
+  .nav{font-size:11px;color:#888;text-align:center}.nav.active{color:var(--accent);font-weight:700}.nav b{display:block;font-size:20px;margin-bottom:3px}
+  @media(min-width:700px){.phone{box-shadow:0 20px 70px #999;border-radius:30px;margin:30px auto;min-height:850px}.bottom{position:absolute;border-radius:0 0 30px 30px}}
+</style>
+</head>
+<body>
+<main class="phone">
+  <section class="screen">
+    <header class="top">
+      <div class="location">Delivering to <strong>📍 Lafia</strong></div>
+      <div class="icon">🔔</div>
+    </header>
+
+    <h1>What are you<br>craving today?</h1>
+    <div class="search">⌕ <span>Search food, restaurants...</span></div>
+
+    <div class="section-head"><h2>Categories</h2><span>Swipe →</span></div>
+    <div class="rail">
+      <div class="cat"><div class="cat-img">🍔</div><label>Burgers</label></div>
+      <div class="cat"><div class="cat-img">🍗</div><label>Chicken</label></div>
+      <div class="cat"><div class="cat-img">🍚</div><label>Rice</label></div>
+      <div class="cat"><div class="cat-img">🍕</div><label>Pizza</label></div>
+      <div class="cat"><div class="cat-img">🌮</div><label>Snacks</label></div>
+      <div class="cat"><div class="cat-img">🥤</div><label>Drinks</label></div>
+    </div>
+
+    <div class="section-head"><h2>Deals for you</h2><span>Swipe →</span></div>
+    <div class="rail">
+      <article class="hero">
+        <small>WELCOME TO BITE</small>
+        <h3>Hungry?<br>Let's fix that.</h3>
+        <button>Order now</button>
+        <div class="emoji">🍔</div>
+      </article>
+      <article class="hero">
+        <small>NEW AROUND YOU</small>
+        <h3>Discover<br>Lafia's best.</h3>
+        <button>Explore</button>
+        <div class="emoji">🍗</div>
+      </article>
+    </div>
+
+    <div class="section-head"><h2>Popular near you</h2><span>See all</span></div>
+    <div class="rail">
+      <article class="restaurant">
+        <div class="food-img">🍛</div>
+        <div class="restaurant-info">
+          <h3>Lafia Kitchen</h3>
+          <div class="meta">⭐ 4.8 · 20–30 min · ₦500 delivery</div>
+          <span class="tag">LOCAL FAVOURITE</span>
+        </div>
+      </article>
+      <article class="restaurant">
+        <div class="food-img">🍔</div>
+        <div class="restaurant-info">
+          <h3>Campus Bites</h3>
+          <div class="meta">⭐ 4.7 · 15–25 min · ₦400 delivery</div>
+          <span class="tag">FAST DELIVERY</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <nav class="bottom">
+    <div class="nav active"><b>⌂</b>Home</div>
+    <div class="nav"><b>⌕</b>Explore</div>
+    <div class="nav"><b>🛒</b>Cart</div>
+    <div class="nav"><b>◯</b>Orders</div>
+    <div class="nav"><b>◉</b>Profile</div>
+  </nav>
+</main>
+</body>
+</html>
