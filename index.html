@@ -77,6 +77,17 @@
   .premium-logo{height:34px;width:auto;margin:0 auto;display:block;filter:brightness(0) invert(1) drop-shadow(0 0 0 var(--egusi))}
   .premium-hero .tagline{font-family:'Playfair Display',serif;font-style:italic;
     color:var(--cream);font-size:14px;margin:10px 0 0;opacity:.85}
+  .price-picks{opacity:0;animation:rise .5s ease .15s forwards}
+.price-pick{min-width:57.5px;text-align:center;cursor:pointer;flex:none}
+.price-pick .ring-sm{
+  width:57.5px;height:57.5px;border-radius:50%;border:3px solid var(--egusi);
+  padding:6px;overflow:hidden;margin:0 auto;
+}
+.price-pick .ring-sm img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+.price-pick .price-tag{
+  font-family:var(--mono);font-size:11px;font-weight:700;color:var(--pepper);
+  margin-top:6px;display:block;
+}
   /* ---- eyebrow / section head ---- */
   .eyebrow{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink);text-transform:uppercase;font-weight:700}
   .eyebrow::before{content:"";width:9px;height:9px;background:var(--pepper);border-radius:2px;flex:none}
@@ -197,6 +208,30 @@
       <p class="tagline">Every Bite Matters.</p>
     </div>
 
+    <div class="section-head"><span class="eyebrow">Quick picks</span><span class="see-all">Swipe →</span></div>
+<div class="rail price-picks">
+  <div class="price-pick" tabindex="0">
+    <div class="ring-sm"><img src="assets/hero-dish.jpg" alt="Jollof rice"></div>
+    <span class="price-tag">₦1,200</span>
+  </div>
+  <div class="price-pick" tabindex="0">
+    <div class="ring-sm"><img src="assets/hero-dish.jpg" alt="Suya"></div>
+    <span class="price-tag">₦1,500</span>
+  </div>
+  <div class="price-pick" tabindex="0">
+    <div class="ring-sm"><img src="assets/hero-dish.jpg" alt="Chicken"></div>
+    <span class="price-tag">₦2,000</span>
+  </div>
+  <div class="price-pick" tabindex="0">
+    <div class="ring-sm"><img src="assets/hero-dish.jpg" alt="Pizza slice"></div>
+    <span class="price-tag">₦2,500</span>
+  </div>
+  <div class="price-pick" tabindex="0">
+    <div class="ring-sm"><img src="assets/hero-dish.jpg" alt="Drink"></div>
+    <span class="price-tag">₦800</span>
+  </div>
+</div>
+    
     <div class="section-head"><span class="eyebrow">Categories</span><span class="see-all">Swipe →</span></div>
     <div class="rail cats">
       <div class="cat" tabindex="0">
