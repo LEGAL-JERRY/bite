@@ -30,11 +30,7 @@
   /* ---- top bar ---- */
   .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;opacity:0;animation:rise .5s ease forwards}
     .brand{display:flex;align-items:center;gap:14px}
-  .bite-logo{display:inline-flex;font-family:var(--disp);font-size:24px;line-height:1;
-    letter-spacing:-.5px;transform:skewX(-10deg);flex:none}
-  .bite-logo span{display:inline-block}
-  .bite-logo .g{color:var(--egusi)}
-  .bite-logo .k{color:var(--ink)}
+    .bite-logo{height:26px;width:auto;flex:none;object-fit:contain}
   .loc-label{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;display:flex;align-items:center;gap:5px}
   .loc-label svg{width:12px;height:12px;flex:none}
   .loc-name{display:flex;align-items:center;gap:6px;font-family:var(--body);font-weight:700;font-size:17px;margin-top:3px}
@@ -52,7 +48,14 @@
 
   .search{height:50px;background:var(--cream);border:2px solid var(--ink);border-radius:15px;display:flex;align-items:center;gap:10px;padding:0 15px;color:var(--muted);font-size:13.5px}
   .search svg{width:19px;height:19px;color:var(--ink);flex:none}
-
+    .premium-hero{position:relative;background:linear-gradient(160deg,#3a1c0a,var(--ink));
+    border-radius:22px;padding:28px 20px 22px;margin:22px 0 26px;text-align:center;overflow:hidden}
+  .premium-hero .ring{width:100%;max-width:230px;aspect-ratio:1;margin:0 auto 16px;
+    border-radius:50%;border:3px solid var(--egusi);padding:6px;overflow:hidden}
+  .premium-hero .ring img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+  .premium-logo{height:34px;width:auto;margin:0 auto;display:block;filter:brightness(0) invert(1) drop-shadow(0 0 0 var(--egusi))}
+  .premium-hero .tagline{font-family:'Playfair Display',serif;font-style:italic;
+    color:var(--cream);font-size:14px;margin:10px 0 0;opacity:.85}
   /* ---- eyebrow / section head ---- */
   .eyebrow{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink);text-transform:uppercase;font-weight:700}
   .eyebrow::before{content:"";width:9px;height:9px;background:var(--pepper);border-radius:2px;flex:none}
@@ -132,9 +135,7 @@
 
     <header class="top">
             <div class="brand">
-        <div class="bite-logo" aria-label="Bite logo">
-          <span class="g">B</span><span class="k">I</span><span class="g">T</span><span class="k">E</span>
-        </div>
+               <img class="bite-logo" src="assets/bite-logo.png" alt="Bite logo">
         <div>
           <div class="loc-label">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.4 2 5.5 4.9 5.5 8.5C5.5 13.4 12 21 12 21C12 21 18.5 13.4 18.5 8.5C18.5 4.9 15.6 2 12 2Z"/><circle cx="12" cy="8.5" r="2.3" fill="currentColor" stroke="none"/></svg>
@@ -165,6 +166,12 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="19" y1="19" x2="15.3" y2="15.3"/></svg>
         Search food, chop spots...
       </div>
+    </div>
+
+    <div class="premium-hero">
+      <div class="ring"><img src="assets/hero-dish.jpg" alt="Featured Bite dish"></div>
+      <img class="premium-logo" src="assets/bite-logo.png" alt="Bite logo">
+      <p class="tagline">Every Bite Matters.</p>
     </div>
 
     <div class="section-head"><span class="eyebrow">Categories</span><span class="see-all">Swipe →</span></div>
