@@ -53,9 +53,7 @@
   .bell-btn:active{transform:scale(.92)}
   .bell-btn svg{width:20px;height:20px;color:var(--ink)}
   .bell-dot{position:absolute;top:0;right:0;width:8px;height:8px;background:var(--pepper);border-radius:50%;border:2px solid var(--paper)}
-  .profile-btn{width:38px;height:38px;border-radius:50%;background:var(--palm);border:2px solid var(--ink);display:grid;place-items:center;cursor:pointer;transition:transform .15s ease;flex:none;position:relative;margin-left:-20px;z-index:2}
-  .profile-btn:active{transform:scale(.92)}
-  .profile-btn svg{width:21px;height:21px;color:var(--ink)} /* ---- hero / headline ---- */
+
   .hero-wrap{position:relative;margin-bottom:20px;opacity:0;animation:rise .5s ease .06s forwards}
   h1{font-family:var(--disp);font-weight:400;font-size:40px;line-height:.98;letter-spacing:.5px;margin:0 0 10px;max-width:76%;text-transform:uppercase}
   h1 em{font-style:normal;color:var(--pepper)}
@@ -151,12 +149,8 @@
   <div class="corner-blob blob-tr" aria-hidden="true"></div>
   <section class="screen">
 
-      <header class="top">
-  <div class="bg-circle-brown" aria-hidden="true"></div>
-  <div class="bg-circle-green" aria-hidden="true"></div>
-  <div class="pin-circle" aria-hidden="true" style="position:relative;z-index:1">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.4 2 5.5 4.9 5.5 8.5C5.5 13.4 12 21 12 21C12 21 18.5 13.4 18.5 8.5C18.5 4.9 15.6 2 12 2Z"/><circle cx="12" cy="8.5" r="2.3" fill="currentColor" stroke="none"/></svg>
-      </div>
+<header class="top">
+  <div class="brand-stack"> </div>
       <div class="brand-stack">
         <img class="bite-logo" src="assets/bite-logo.png" alt="Bite logo">
         <span class="loc-name">Lafia</span>
@@ -168,10 +162,7 @@
           </button>
           <div class="bell-dot"></div>
         </div>
-        <button class="profile-btn" aria-label="Profile">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"/><path d="M5 21C5 16.8 8.1 14 12 14C15.9 14 19 16.8 19 21"/></svg>
-        </button>
-      </div>
+     </div>
     </header>
 
     <div class="hero-wrap">
