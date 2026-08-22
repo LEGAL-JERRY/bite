@@ -39,8 +39,10 @@
   }
 
   /* ---- top bar ---- */
-  .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;opacity:0;animation:rise .5s ease forwards}
-    .brand{display:flex;align-items:center;gap:14px}
+ .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;opacity:0;animation:rise .5s ease forwards;position:relative}
+.bg-circle-brown{position:absolute;width:120px;height:120px;border-radius:50%;background:#3a1c0a;top:-40px;left:-10px;z-index:0;opacity:.9}
+.bg-circle-green{position:absolute;width:60px;height:60px;border-radius:50%;background:var(--palm);top:-10px;left:70px;z-index:0;opacity:.9}
+  .brand{display:flex;align-items:center;gap:14px}
  .pin-circle{width:76px;height:76px;border-radius:50%;background:#3a1c0a;border:2px solid var(--ink);display:grid;place-items:center;flex:none;position:relative;z-index:1}
   .pin-circle svg{width:17px;height:17px;color:var(--ink)}
   .brand-stack{display:flex;flex-direction:column;align-items:flex-start;gap:3px;flex:1;min-width:0}
@@ -150,7 +152,9 @@
   <section class="screen">
 
       <header class="top">
-      <div class="pin-circle" aria-hidden="true">
+  <div class="bg-circle-brown" aria-hidden="true"></div>
+  <div class="bg-circle-green" aria-hidden="true"></div>
+  <div class="pin-circle" aria-hidden="true" style="position:relative;z-index:1">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.4 2 5.5 4.9 5.5 8.5C5.5 13.4 12 21 12 21C12 21 18.5 13.4 18.5 8.5C18.5 4.9 15.6 2 12 2Z"/><circle cx="12" cy="8.5" r="2.3" fill="currentColor" stroke="none"/></svg>
       </div>
       <div class="brand-stack">
