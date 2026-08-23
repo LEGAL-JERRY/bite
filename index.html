@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">Fb
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bite — Lafia Food Delivery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
+
+  *{box-sizing:border-box}
+  :root{
+    --paper:#F5EFE1;
+    --ink:#1B1006;
+    --pepper:#E63328;
+    --palm:#2F7A4D;
+    --egusi:#F2B705;
+    --cream:#FFFCF5;
+    --muted:#8A7D6A;
+    --line:rgba(27,16,6,.14);
+    --disp:'Anton', Impact, 'Arial Narrow Bold', sans-serif;
+    --body:'Space Grotesk','Segoe UI',sans-serif;
+    --mono:'JetBrains Mono','SF Mono',monospace;
+  }
+
+  body{margin:0;background:var(--ink);font-family:var(--body);color:var(--ink)}
+  .phone{width:min(100%,430px);min-height:100vh;margin:auto;background:var(--paper);overflow:hidden;position:relative}
+  .screen{padding:20px 18px 104px;position:relative;z-index:1}
+
+  /* ---- header background circles ---- */
+  .corner-blob{position:absolute;border-radius:50%;pointer-events:none;z-index:0}
+.blob-tl{
+  width:500px;height:450px;top:-165px;left:-180px;
+  background:#3a1c0a;
+}
+.bg-circle-green{
+  position:absolute;width:70px;height:70px;border-radius:50%;
+  background:#39FF14;
+  top:60px;left:120px;
+  z-index:0;opacity:1;
+}
+
+  /* ---- top bar ---- */
+ .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;opacity:0;animation:rise .5s ease forwards;position:relative}
+.bg-circle-brown{position:absolute;width:120px;height:120px;border-radius:50%;background:#3a1c0a;top:-40px;left:-10px;z-index:0;opacity:.9}
+.bg-circle-green{position:absolute;width:60px;height:60px;border-radius:50%;background:var(--palm);top:-10px;left:70px;z-index:0;opacity:.9}
+  .brand{display:flex;align-items:center;gap:14px}
+ .pin-circle{width:76px;height:76px;border-radius:50%;background:#3a1c0a;border:2px solid var(--ink);display:grid;place-items:center;flex:none;position:relative;z-index:1}
+  .pin-circle svg{width:17px;height:17px;color:var(--ink)}
+  .brand-stack{display:flex;flex-direction:column;align-items:flex-start;gap:3px;flex:1;min-width:0}
+  .bite-logo{height:34px;width:auto;flex:none;object-fit:contain}
+  .loc-name{font-family:var(--mono);font-weight:700;font-size:11.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+  .top-actions{display:flex;align-items:center;gap:10px;flex:none}
+  .bell-btn{width:42px;height:42px;border-radius:50%;background:var(--cream);border:2px solid var(--ink);display:grid;place-items:center;cursor:pointer;transition:transform .15s ease}
+  .bell-btn:active{transform:scale(.92)}
+  .bell-btn svg{width:20px;height:20px;color:var(--ink)}
+  .bell-dot{position:absolute;top:0;right:0;width:8px;height:8px;background:var(--pepper);border-radius:50%;border:2px solid var(--paper)}
+
+  .hero-wrap{position:relative;margin-bottom:20px;opacity:0;animation:rise .5s ease .06s forwards}
+  h1{font-family:var(--disp);font-weight:400;font-size:40px;line-height:.98;letter-spacing:.5px;margin:0 0 10px;max-width:76%;text-transform:uppercase}
+  h1 em{font-style:normal;color:var(--pepper)}
+  .hero-bowl{position:absolute;right:-14px;top:-6px;width:118px;height:118px;color:var(--ink);opacity:.94}
+  .sub{font-size:13.5px;color:var(--muted);max-width:70%;margin:0 0 18px;line-height:1.4}
+
+  .search{height:50px;background:var(--cream);border:2px solid var(--ink);border-radius:15px;display:flex;align-items:center;gap:10px;padding:0 15px;color:var(--muted);font-size:13.5px}
+  .search svg{width:19px;height:19px;color:var(--ink);flex:none}
+    .premium-hero{
+  position:relative;
+  margin:22px 0 26px;
+  text-align:center;
+}border-radius:22px;padding:28px 20px 22px;margin:22px 0 26px;text-align:center;overflow:hidden}
+.premium-hero .ring{
+  width:100%;max-width:17.5px;aspect-ratio:1;margin:0 auto 16px;
+  border-radius:50%;border:3px solid var(--egusi);padding:6px;overflow:hidden;
+}
+  .premium-hero .ring img{width:25%;height:25%;object-fit:cover;border-radius:50%;display:block}
+  .premium-logo{height:34px;width:auto;margin:0 auto;display:block;filter:brightness(0) invert(1) drop-shadow(0 0 0 var(--egusi))}
+  .premium-hero .tagline{font-family:'Playfair Display',serif;font-style:italic;
+    color:var(--cream);font-size:14px;margin:10px 0 0;opacity:.85}
+  .price-picks{opacity:0;animation:rise .5s ease .15s forwards}
+.price-pick{min-width:57.5px;text-align:center;cursor:pointer;flex:none}
+.price-pick .ring-sm{
+  width:57.5px;height:57.5px;border-radius:50%;border:3px solid var(--egusi);
+  padding:6px;overflow:hidden;margin:0 auto;
+}
+.price-pick .ring-sm img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+.price-pick .price-tag{
+  font-family:var(--mono);font-size:11px;font-weight:700;color:var(--pepper);
+  margin-top:6px;display:block;
+}
+  /* ---- eyebrow / section head ---- */
+  .eyebrow{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink);text-transform:uppercase;font-weight:700}
+  .eyebrow::before{content:"";width:9px;height:9px;background:var(--pepper);border-radius:2px;flex:none}
+  .section-head{display:flex;justify-content:space-between;align-items:center;margin:28px 0 12px}
+  .section-head .see-all{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--pepper);text-transform:uppercase;letter-spacing:.06em}
+
+  /* ---- rails ---- */
+  .rail{display:flex;gap:11px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:none}
+  .rail::-webkit-scrollbar{display:none}
+
+  /* ---- categories ---- */
+  .cats{opacity:0;animation:rise .5s ease .12s forwards}
+  .cat{min-width:64px;text-align:center;cursor:pointer}
+  .cat-badge{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;margin:auto;border:2.5px solid var(--ink);transition:transform .18s ease}
+  .cat:hover .cat-badge,.cat:active .cat-badge{transform:translateY(-3px) rotate(-4deg)}
+  .cat-badge svg{width:28px;height:28px}
+  .cat label{font-size:11.5px;font-weight:700;display:block;margin-top:8px;letter-spacing:.01em}
+
+  /* ---- deals: the signature signboard cards ---- */
+  .deals{opacity:0;animation:rise .5s ease .18s forwards}
+  .board{min-width:262px;border-radius:18px;padding:20px;height:172px;position:relative;overflow:hidden;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);color:var(--cream);transition:transform .2s ease,box-shadow .2s ease}
+  .board:nth-child(1){background:var(--pepper);transform:rotate(-1.4deg)}
+  .board:nth-child(2){background:var(--palm);transform:rotate(1.2deg)}
+  .board:hover{transform:rotate(0deg) translateY(-2px);box-shadow:8px 8px 0 var(--ink)}
+  .board small{font-family:var(--mono);font-size:10px;letter-spacing:.1em;opacity:.85;font-weight:700}
+  .board h3{font-family:var(--disp);font-weight:400;font-size:24px;line-height:1;text-transform:uppercase;max-width:150px;margin:9px 0 12px}
+  .board .cta{border:2px solid var(--ink);background:var(--cream);color:var(--ink);border-radius:11px;padding:9px 14px;font-family:var(--body);font-weight:700;font-size:12.5px;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:transform .12s ease,box-shadow .12s ease}
+  .board .cta:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+  .board .cta:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+  .board-icon{position:absolute;right:-10px;bottom:-14px;width:96px;height:96px;opacity:.9}
+
+  /* ---- popular list ---- */
+  .popular{opacity:0;animation:rise .5s ease .24s forwards}
+  .spot{display:flex;gap:13px;background:var(--cream);border:1.5px solid var(--line);border-radius:16px;padding:12px;margin-bottom:11px;position:relative;transition:transform .15s ease,box-shadow .15s ease}
+  .spot:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(27,16,6,.08)}
+  .dish-badge{width:58px;height:58px;border-radius:14px;display:grid;place-items:center;flex:none}
+  .dish-badge svg{width:30px;height:30px}
+  .spot-body{flex:1;min-width:0}
+  .spot-top{display:flex;justify-content:space-between;align-items:flex-start;gap:6px}
+  .spot-top h3{margin:0;font-size:15.5px;font-weight:700}
+  .fav{background:none;border:0;padding:2px;cursor:pointer;color:var(--muted);flex:none;transition:transform .15s ease}
+  .fav svg{width:19px;height:19px}
+  .fav.on{color:var(--pepper)}
+  .fav.on svg{fill:currentColor}
+  .fav:active{transform:scale(.85)}
+  .meta{font-family:var(--mono);font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-top:5px}
+  .meta svg{width:12px;height:12px;color:var(--egusi);flex:none}
+  .meta .dot{width:3px;height:3px;background:var(--muted);border-radius:50%}
+  .tag{display:inline-flex;align-items:center;background:#fff1ed;color:var(--pepper);padding:4px 9px;border-radius:8px;font-family:var(--mono);font-size:9.5px;font-weight:700;margin-top:8px;letter-spacing:.04em;transform:rotate(-1.5deg)}
+
+  /* ---- bottom nav ---- */
+  .bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,430px);height:76px;background:var(--cream);border-top:2px solid var(--ink);display:flex;justify-content:space-around;align-items:center}
+  .nav{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;color:var(--muted);font-weight:700;cursor:pointer;position:relative}
+  .nav-ico{width:38px;height:26px;display:grid;place-items:center;border-radius:10px;position:relative}
+  .nav.active .nav-ico{background:var(--pepper)}
+  .nav.active{color:var(--ink)}
+  .nav svg{width:21px;height:21px;color:var(--ink)}
+  .nav.active svg{color:var(--cream)}
+  .cart-count{position:absolute;top:-4px;right:2px;width:15px;height:15px;background:var(--pepper);border:2px solid var(--cream);border-radius:50%;font-size:8px;color:var(--cream);display:grid;place-items:center;font-family:var(--mono)}
+
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important}
+    .top,.hero-wrap,.cats,.deals,.popular{opacity:1}
+  }
+  button:focus-visible,.fav:focus-visible,.cat:focus-visible,.bell-btn:focus-visible{outline:3px solid var(--palm);outline-offset:2px}
+
+  @media(min-width:700px){
+    .phone{box-shadow:0 24px 70px rgba(0,0,0,.45);border-radius:30px;margin:30px auto;min-height:850px}
+    .bottom{position:absolute;border-radius:0 0 30px 30px}
+  }
+</style>
+</head>
+<body>
+<main class="phone">
+  <div class="corner-blob blob-tl" aria-hidden="true"></div>
+  <div class="corner-blob blob-tr" aria-hidden="true"></div>
+  <div class="corner-blob blob-tl" aria-hidden="true"></div>
+<div class="bg-circle-green" aria-hidden="true"></div>
+<div class="corner-blob blob-tr" aria-hidden="true"></div>
+  <section class="screen">
+
+<header class="top">
+  <div class="brand-stack"> </div>
+      <div class="brand-stack">
+        <img class="bite-logo" src="assets/bite-logo.png" alt="Bite logo">
+        <span class="loc-name">Lafia</span>
+      </div>
+      <div class="top-actions">
+        <div style="position:relative">
+          <button class="bell-btn" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C9.5 3 7.5 5 7.5 7.8V11.5C7.5 12.6 7.1 13.6 6.3 14.4L5 15.7H19L17.7 14.4C16.9 13.6 16.5 12.6 16.5 11.5V7.8C16.5 5 14.5 3 12 3Z"/><path d="M10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18"/></svg>
+          </button>
+          <div class="bell-dot"></div>
+        </div>
+     </div>
+    </header>
+
+    <div class="hero-wrap">
+      <svg class="hero-bowl" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 5C16 5 13.5 8.5 16 12" opacity=".55"><animate attributeName="d" dur="3.2s" repeatCount="indefinite" values="M16 5C16 5 13.5 8.5 16 12;M16 5C16 5 18.5 8.5 16 12;M16 5C16 5 13.5 8.5 16 12"/></path>
+        <path d="M24 3C24 3 21.5 6.5 24 10"><animate attributeName="d" dur="3.2s" begin=".3s" repeatCount="indefinite" values="M24 3C24 3 21.5 6.5 24 10;M24 3C24 3 26.5 6.5 24 10;M24 3C24 3 21.5 6.5 24 10"/></path>
+        <path d="M32 5C32 5 29.5 8.5 32 12" opacity=".55"><animate attributeName="d" dur="3.2s" begin=".6s" repeatCount="indefinite" values="M32 5C32 5 29.5 8.5 32 12;M32 5C32 5 34.5 8.5 32 12;M32 5C32 5 29.5 8.5 32 12"/></path>
+        <path d="M8 22C8 22 8 38 24 38C40 38 40 22 40 22" fill="var(--cream)"/>
+        <ellipse cx="24" cy="22" rx="16" ry="3.4" fill="var(--egusi)"/>
+      </svg>
+
+      <p class="sub">Order from Lafia's best kitchens &amp; chop spots, delivered fast.</p>
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="19" y1="19" x2="15.3" y2="15.3"/></svg>
+        Search food, chop spots...
+      </div>
+    </div>
+
+    <div class="premium-hero">
+      <div class="ring"><img src="assets/hero-dish.jpg" alt="Featured Bite dish"></div>
+      <img class="premium-logo" src="assets/bite-logo.png" alt="Bite logo">
+      <p class="tagline">Every Bite Matters.</p>
+    </div>
+
+    <div class="section-head"><span class="eyebrow">Quick picks</span><span class="see-all">Swipe →</span></div>
+<div class="rail price-picks">
+  <div class="price-pick" tabindex="0">
+    <div class="ring-sm"><img src="assets/hero-dish.jpg" alt="Jollof rice"></div>
+    <span class="price-tag">₦1,200</span>
+  </div>
+  <div class="price-pick" tabindex="0">
+    <div class="ring-sm"><img src="assets/hero-dish.jpg" alt="Suya"></div>
+    <span class="price-tag">₦1,500</span>
+  </div>
+  <div class="price-pick" tabindex="0">
+    <div class="ring-sm"><img src="assets/hero-dish.jpg" alt="Chicken"></div>
+    <span class="price-tag">₦2,000</span>
+  </div>
+  <div class="price-pick" tabindex="0">
+    <div class="ring-sm"><img src="assets/hero-dish.jpg" alt="Pizza slice"></div>
+    <span class="price-tag">₦2,500</span>
+  </div>
+  <div class="price-pick" tabindex="0">
+    <div class="ring-sm"><img src="assets/hero-dish.jpg" alt="Drink"></div>
+    <span class="price-tag">₦800</span>
+  </div>
+</div>
+    
+    <div class="section-head"><span class="eyebrow">Categories</span><span class="see-all">Swipe →</span></div>
+    <div class="rail cats">
+      <div class="cat" tabindex="0">
+        <div class="cat-badge" style="background:var(--pepper)">
+          <svg viewBox="0 0 48 48" fill="none" stroke="var(--cream)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6C17 6 15 9 17 12"/><path d="M24 4C24 4 22 7 24 10"/><path d="M31 6C31 6 29 9 31 12"/><path d="M8 22C8 22 8 38 24 38C40 38 40 22 40 22"/><ellipse cx="24" cy="22" rx="16" ry="3.2"/></svg>
+        </div>
+        <label>Rice</label>
+      </div>
+      <div class="cat" tabindex="0">
+        <div class="cat-badge" style="background:var(--egusi)">
+          <svg viewBox="0 0 48 48" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="24" x2="44" y2="24"/><rect x="9" y="18" width="7" height="12" rx="2" transform="rotate(-6 12.5 24)"/><rect x="20.5" y="18" width="7" height="12" rx="2" transform="rotate(5 24 24)"/><rect x="32" y="18" width="7" height="12" rx="2" transform="rotate(-4 35.5 24)"/></svg>
+        </div>
+        <label>Suya</label>
+      </div>
+      <div class="cat" tabindex="0">
+        <div class="cat-badge" style="background:var(--palm)">
+          <svg viewBox="0 0 48 48" fill="none" stroke="var(--cream)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="17" cy="19" rx="12" ry="9" transform="rotate(-25 17 19)"/><rect x="26" y="30" width="19" height="7.5" rx="3.7" transform="rotate(42 35.5 33.7)"/></svg>
+        </div>
+        <label>Chicken</label>
+      </div>
+      <div class="cat" tabindex="0">
+        <div class="cat-badge" style="background:var(--ink)">
+          <svg viewBox="0 0 48 48" fill="none" stroke="var(--cream)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 40Q24 48 42 40"/><path d="M24 6L8 40H40Z"/><circle cx="21" cy="24" r="1.6" fill="var(--cream)" stroke="none"/><circle cx="27" cy="30" r="1.6" fill="var(--cream)" stroke="none"/></svg>
+        </div>
+        <label>Pizza</label>
+      </div>
+      <div class="cat" tabindex="0">
+        <div class="cat-badge" style="background:var(--pepper)">
+          <svg viewBox="0 0 48 48" fill="none" stroke="var(--cream)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20C8 12 16 8 24 8C32 8 40 12 40 20"/><path d="M8 24Q12 20 16 24Q20 20 24 24Q28 20 32 24Q36 20 40 24"/><rect x="8" y="26" width="32" height="7" rx="3"/><rect x="8" y="35" width="32" height="7" rx="3"/></svg>
+        </div>
+        <label>Burgers</label>
+      </div>
+      <div class="cat" tabindex="0">
+        <div class="cat-badge" style="background:var(--egusi)">
+          <svg viewBox="0 0 48 48" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14H33L29 40H19Z"/><ellipse cx="24" cy="14" rx="9" ry="2.6"/><line x1="25" y1="3" x2="21" y2="14"/></svg>
+        </div>
+        <label>Drinks</label>
+      </div>
+    </div>
+
+    <div class="section-head"><span class="eyebrow">Deals for you</span><span class="see-all">Swipe →</span></div>
+    <div class="rail deals">
+      <article class="board">
+        <small>WELCOME TO BITE</small>
+        <h3>First order? We got you.</h3>
+        <button class="cta">Order now — ₦500 off</button>
+        <svg class="board-icon" viewBox="0 0 48 48" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6C17 6 15 9 17 12" opacity=".5"/><path d="M24 4C24 4 22 7 24 10"/><path d="M31 6C31 6 29 9 31 12" opacity=".5"/><path d="M8 22C8 22 8 38 24 38C40 38 40 22 40 22" fill="var(--cream)"/><ellipse cx="24" cy="22" rx="16" ry="3.2" fill="var(--egusi)"/></svg>
+      </article>
+      <article class="board">
+        <small>NEW AROUND YOU</small>
+        <h3>Taste Lafia's best.</h3>
+        <button class="cta">Explore spots</button>
+        <svg class="board-icon" viewBox="0 0 48 48" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="17" cy="19" rx="12" ry="9" transform="rotate(-25 17 19)" fill="var(--egusi)"/><rect x="26" y="30" width="19" height="7.5" rx="3.7" transform="rotate(42 35.5 33.7)" fill="var(--cream)"/></svg>
+      </article>
+    </div>
+
+    <div class="section-head"><span class="eyebrow">Popular near you</span><span class="see-all">See all</span></div>
+    <div class="popular">
+
+      <article class="spot">
+        <div class="dish-badge" style="background:var(--egusi)">
+          <svg viewBox="0 0 48 48" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C17 8 15 11 17 14"/><path d="M24 6C24 6 22 9 24 12"/><path d="M31 8C31 8 29 11 31 14"/><path d="M8 22C8 22 8 38 24 38C40 38 40 22 40 22"/><ellipse cx="24" cy="22" rx="16" ry="3.2"/></svg>
+        </div>
+        <div class="spot-body">
+          <div class="spot-top">
+            <h3>Lafia Kitchen</h3>
+            <button class="fav" aria-label="Save restaurant" onclick="this.classList.toggle('on')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20.5C12 20.5 4.5 15.5 4.5 9.8C4.5 6.8 6.9 4.5 9.8 4.5C11.2 4.5 12 5.3 12 5.3C12 5.3 12.8 4.5 14.2 4.5C17.1 4.5 19.5 6.8 19.5 9.8C19.5 15.5 12 20.5 12 20.5Z"/></svg>
+            </button>
+          </div>
+          <div class="meta">
+            <svg viewBox="0 0 24 24"><path d="M12 2L14.6 8.6L21.8 9.1L16.2 13.6L18 20.6L12 16.7L6 20.6L7.8 13.6L2.2 9.1L9.4 8.6Z" fill="currentColor"/></svg>
+            4.8 <span class="dot"></span> 20–30 min <span class="dot"></span> ₦500
+          </div>
+          <span class="tag">LOCAL FAVOURITE</span>
+        </div>
+      </article>
+
+      <article class="spot">
+        <div class="dish-badge" style="background:var(--pepper)">
+          <svg viewBox="0 0 48 48" fill="none" stroke="var(--cream)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20C8 12 16 8 24 8C32 8 40 12 40 20"/><path d="M8 24Q12 20 16 24Q20 20 24 24Q28 20 32 24Q36 20 40 24"/><rect x="8" y="26" width="32" height="7" rx="3"/><rect x="8" y="35" width="32" height="7" rx="3"/></svg>
+        </div>
+        <div class="spot-body">
+          <div class="spot-top">
+            <h3>Campus Bites</h3>
+            <button class="fav" aria-label="Save restaurant" onclick="this.classList.toggle('on')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20.5C12 20.5 4.5 15.5 4.5 9.8C4.5 6.8 6.9 4.5 9.8 4.5C11.2 4.5 12 5.3 12 5.3C12 5.3 12.8 4.5 14.2 4.5C17.1 4.5 19.5 6.8 19.5 9.8C19.5 15.5 12 20.5 12 20.5Z"/></svg>
+            </button>
+          </div>
+          <div class="meta">
+            <svg viewBox="0 0 24 24"><path d="M12 2L14.6 8.6L21.8 9.1L16.2 13.6L18 20.6L12 16.7L6 20.6L7.8 13.6L2.2 9.1L9.4 8.6Z" fill="currentColor"/></svg>
+            4.7 <span class="dot"></span> 15–25 min <span class="dot"></span> ₦400
+          </div>
+          <span class="tag">FAST DELIVERY</span>
+        </div>
+      </article>
+
+      <article class="spot">
+        <div class="dish-badge" style="background:var(--ink)">
+          <svg viewBox="0 0 48 48" fill="none" stroke="var(--cream)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="24" x2="44" y2="24"/><rect x="9" y="18" width="7" height="12" rx="2" transform="rotate(-6 12.5 24)"/><rect x="20.5" y="18" width="7" height="12" rx="2" transform="rotate(5 24 24)"/><rect x="32" y="18" width="7" height="12" rx="2" transform="rotate(-4 35.5 24)"/></svg>
+        </div>
+        <div class="spot-body">
+          <div class="spot-top">
+            <h3>Suya Corner</h3>
+            <button class="fav" aria-label="Save restaurant" onclick="this.classList.toggle('on')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20.5C12 20.5 4.5 15.5 4.5 9.8C4.5 6.8 6.9 4.5 9.8 4.5C11.2 4.5 12 5.3 12 5.3C12 5.3 12.8 4.5 14.2 4.5C17.1 4.5 19.5 6.8 19.5 9.8C19.5 15.5 12 20.5 12 20.5Z"/></svg>
+            </button>
+          </div>
+          <div class="meta">
+            <svg viewBox="0 0 24 24"><path d="M12 2L14.6 8.6L21.8 9.1L16.2 13.6L18 20.6L12 16.7L6 20.6L7.8 13.6L2.2 9.1L9.4 8.6Z" fill="currentColor"/></svg>
+            4.9 <span class="dot"></span> 10–20 min <span class="dot"></span> ₦350
+          </div>
+          <span class="tag">SPICY PICK</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <nav class="bottom">
+    <div class="nav active">
+      <div class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11L12 4L21 11V20H14V14H10V20H3V11Z"/></svg></div>
+      Home
+    </div>
+    <div class="nav">
+      <div class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="19" y1="19" x2="15.3" y2="15.3"/></svg></div>
+      Explore
+    </div>
+    <div class="nav">
+      <div class="nav-ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8H19L18 20H6L5 8Z"/><path d="M8 8V6C8 3.8 9.8 2 12 2C14.2 2 16 3.8 16 6V8"/></svg>
+        <span class="cart-count">2</span>
+      </div>
+      Cart
+    </div>
+    <div class="nav">
+      <div class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="1.5"/><line x1="9" y1="7.5" x2="15" y2="7.5"/><line x1="9" y1="11.5" x2="15" y2="11.5"/><line x1="9" y1="15.5" x2="13" y2="15.5"/></svg></div>
+      Orders
+    </div>
+    <div class="nav">
+      <div class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"/><path d="M5 21C5 16.8 8.1 14 12 14C15.9 14 19 16.8 19 21"/></svg></div>
+      Profile
+    </div>
+  </nav>
+</main>
+</body>
+</html>
