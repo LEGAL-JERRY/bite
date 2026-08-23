@@ -1,381 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">Fb
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bite — Lafia Food Delivery</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
-
-  *{box-sizing:border-box}
-  :root{
-    --paper:#F5EFE1;
-    --ink:#1B1006;
-    --pepper:#E63328;
-    --palm:#2F7A4D;
-    --egusi:#F2B705;
-    --cream:#FFFCF5;
-    --muted:#8A7D6A;
-    --line:rgba(27,16,6,.14);
-    --disp:'Anton', Impact, 'Arial Narrow Bold', sans-serif;
-    --body:'Space Grotesk','Segoe UI',sans-serif;
-    --mono:'JetBrains Mono','SF Mono',monospace;
-  }
-
-  body{margin:0;background:var(--ink);font-family:var(--body);color:var(--ink)}
-  .phone{width:min(100%,430px);min-height:100vh;margin:auto;background:var(--paper);overflow:hidden;position:relative}
-  .screen{padding:20px 18px 104px;position:relative;z-index:1}
-
-  /* ---- header background circles ---- */
-  .corner-blob{position:absolute;border-radius:50%;pointer-events:none;z-index:0}
-.blob-tl{
-  width:500px;height:450px;top:-165px;left:-180px;
-  background:#3a1c0a;
-}
-.bg-circle-green{
-  position:absolute;width:70px;height:70px;border-radius:50%;
-  background:#39FF14;
-  top:60px;left:120px;
-  z-index:0;opacity:1;
-}
-
-  /* ---- top bar ---- */
- .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;opacity:0;animation:rise .5s ease forwards;position:relative}
-.bg-circle-brown{position:absolute;width:120px;height:120px;border-radius:50%;background:#3a1c0a;top:-40px;left:-10px;z-index:0;opacity:.9}
-.bg-circle-green{position:absolute;width:60px;height:60px;border-radius:50%;background:var(--palm);top:-10px;left:70px;z-index:0;opacity:.9}
-  .brand{display:flex;align-items:center;gap:14px}
- .pin-circle{width:76px;height:76px;border-radius:50%;background:#3a1c0a;border:2px solid var(--ink);display:grid;place-items:center;flex:none;position:relative;z-index:1}
-  .pin-circle svg{width:17px;height:17px;color:var(--ink)}
-  .brand-stack{display:flex;flex-direction:column;align-items:flex-start;gap:3px;flex:1;min-width:0}
-  .bite-logo{height:34px;width:auto;flex:none;object-fit:contain}
-  .loc-name{font-family:var(--mono);font-weight:700;font-size:11.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
-  .top-actions{display:flex;align-items:center;gap:10px;flex:none}
-  .bell-btn{width:42px;height:42px;border-radius:50%;background:var(--cream);border:2px solid var(--ink);display:grid;place-items:center;cursor:pointer;transition:transform .15s ease}
-  .bell-btn:active{transform:scale(.92)}
-  .bell-btn svg{width:20px;height:20px;color:var(--ink)}
-  .bell-dot{position:absolute;top:0;right:0;width:8px;height:8px;background:var(--pepper);border-radius:50%;border:2px solid var(--paper)}
-
-  .hero-wrap{position:relative;margin-bottom:20px;opacity:0;animation:rise .5s ease .06s forwards}
-  h1{font-family:var(--disp);font-weight:400;font-size:40px;line-height:.98;letter-spacing:.5px;margin:0 0 10px;max-width:76%;text-transform:uppercase}
-  h1 em{font-style:normal;color:var(--pepper)}
-  .hero-bowl{position:absolute;right:-14px;top:-6px;width:118px;height:118px;color:var(--ink);opacity:.94}
-  .sub{font-size:13.5px;color:var(--muted);max-width:70%;margin:0 0 18px;line-height:1.4}
-
-  .search{height:50px;background:var(--cream);border:2px solid var(--ink);border-radius:15px;display:flex;align-items:center;gap:10px;padding:0 15px;color:var(--muted);font-size:13.5px}
-  .search svg{width:19px;height:19px;color:var(--ink);flex:none}
-    .premium-hero{
-  position:relative;
-  margin:22px 0 26px;
-  text-align:center;
-}border-radius:22px;padding:28px 20px 22px;margin:22px 0 26px;text-align:center;overflow:hidden}
-.premium-hero .ring{
-  width:100%;max-width:17.5px;aspect-ratio:1;margin:0 auto 16px;
-  border-radius:50%;border:3px solid var(--egusi);padding:6px;overflow:hidden;
-}
-  .premium-hero .ring img{width:25%;height:25%;object-fit:cover;border-radius:50%;display:block}
-  .premium-logo{height:34px;width:auto;margin:0 auto;display:block;filter:brightness(0) invert(1) drop-shadow(0 0 0 var(--egusi))}
-  .premium-hero .tagline{font-family:'Playfair Display',serif;font-style:italic;
-    color:var(--cream);font-size:14px;margin:10px 0 0;opacity:.85}
-  .price-picks{opacity:0;animation:rise .5s ease .15s forwards}
-.price-pick{min-width:57.5px;text-align:center;cursor:pointer;flex:none}
-.price-pick .ring-sm{
-  width:57.5px;height:57.5px;border-radius:50%;border:3px solid var(--egusi);
-  padding:6px;overflow:hidden;margin:0 auto;
-}
-.price-pick .ring-sm img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
-.price-pick .price-tag{
-  font-family:var(--mono);font-size:11px;font-weight:700;color:var(--pepper);
-  margin-top:6px;display:block;
-}
-  /* ---- eyebrow / section head ---- */
-  .eyebrow{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink);text-transform:uppercase;font-weight:700}
-  .eyebrow::before{content:"";width:9px;height:9px;background:var(--pepper);border-radius:2px;flex:none}
-  .section-head{display:flex;justify-content:space-between;align-items:center;margin:28px 0 12px}
-  .section-head .see-all{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--pepper);text-transform:uppercase;letter-spacing:.06em}
-
-  /* ---- rails ---- */
-  .rail{display:flex;gap:11px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:none}
-  .rail::-webkit-scrollbar{display:none}
-
-  /* ---- categories ---- */
-  .cats{opacity:0;animation:rise .5s ease .12s forwards}
-  .cat{min-width:64px;text-align:center;cursor:pointer}
-  .cat-badge{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;margin:auto;border:2.5px solid var(--ink);transition:transform .18s ease}
-  .cat:hover .cat-badge,.cat:active .cat-badge{transform:translateY(-3px) rotate(-4deg)}
-  .cat-badge svg{width:28px;height:28px}
-  .cat label{font-size:11.5px;font-weight:700;display:block;margin-top:8px;letter-spacing:.01em}
-
-  /* ---- deals: the signature signboard cards ---- */
-  .deals{opacity:0;animation:rise .5s ease .18s forwards}
-  .board{min-width:262px;border-radius:18px;padding:20px;height:172px;position:relative;overflow:hidden;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);color:var(--cream);transition:transform .2s ease,box-shadow .2s ease}
-  .board:nth-child(1){background:var(--pepper);transform:rotate(-1.4deg)}
-  .board:nth-child(2){background:var(--palm);transform:rotate(1.2deg)}
-  .board:hover{transform:rotate(0deg) translateY(-2px);box-shadow:8px 8px 0 var(--ink)}
-  .board small{font-family:var(--mono);font-size:10px;letter-spacing:.1em;opacity:.85;font-weight:700}
-  .board h3{font-family:var(--disp);font-weight:400;font-size:24px;line-height:1;text-transform:uppercase;max-width:150px;margin:9px 0 12px}
-  .board .cta{border:2px solid var(--ink);background:var(--cream);color:var(--ink);border-radius:11px;padding:9px 14px;font-family:var(--body);font-weight:700;font-size:12.5px;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:transform .12s ease,box-shadow .12s ease}
-  .board .cta:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
-  .board .cta:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
-  .board-icon{position:absolute;right:-10px;bottom:-14px;width:96px;height:96px;opacity:.9}
-
-  /* ---- popular list ---- */
-  .popular{opacity:0;animation:rise .5s ease .24s forwards}
-  .spot{display:flex;gap:13px;background:var(--cream);border:1.5px solid var(--line);border-radius:16px;padding:12px;margin-bottom:11px;position:relative;transition:transform .15s ease,box-shadow .15s ease}
-  .spot:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(27,16,6,.08)}
-  .dish-badge{width:58px;height:58px;border-radius:14px;display:grid;place-items:center;flex:none}
-  .dish-badge svg{width:30px;height:30px}
-  .spot-body{flex:1;min-width:0}
-  .spot-top{display:flex;justify-content:space-between;align-items:flex-start;gap:6px}
-  .spot-top h3{margin:0;font-size:15.5px;font-weight:700}
-  .fav{background:none;border:0;padding:2px;cursor:pointer;color:var(--muted);flex:none;transition:transform .15s ease}
-  .fav svg{width:19px;height:19px}
-  .fav.on{color:var(--pepper)}
-  .fav.on svg{fill:currentColor}
-  .fav:active{transform:scale(.85)}
-  .meta{font-family:var(--mono);font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-top:5px}
-  .meta svg{width:12px;height:12px;color:var(--egusi);flex:none}
-  .meta .dot{width:3px;height:3px;background:var(--muted);border-radius:50%}
-  .tag{display:inline-flex;align-items:center;background:#fff1ed;color:var(--pepper);padding:4px 9px;border-radius:8px;font-family:var(--mono);font-size:9.5px;font-weight:700;margin-top:8px;letter-spacing:.04em;transform:rotate(-1.5deg)}
-
-  /* ---- bottom nav ---- */
-  .bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,430px);height:76px;background:var(--cream);border-top:2px solid var(--ink);display:flex;justify-content:space-around;align-items:center}
-  .nav{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;color:var(--muted);font-weight:700;cursor:pointer;position:relative}
-  .nav-ico{width:38px;height:26px;display:grid;place-items:center;border-radius:10px;position:relative}
-  .nav.active .nav-ico{background:var(--pepper)}
-  .nav.active{color:var(--ink)}
-  .nav svg{width:21px;height:21px;color:var(--ink)}
-  .nav.active svg{color:var(--cream)}
-  .cart-count{position:absolute;top:-4px;right:2px;width:15px;height:15px;background:var(--pepper);border:2px solid var(--cream);border-radius:50%;font-size:8px;color:var(--cream);display:grid;place-items:center;font-family:var(--mono)}
-
-  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-  @media (prefers-reduced-motion:reduce){
-    *{animation:none !important;transition:none !important}
-    .top,.hero-wrap,.cats,.deals,.popular{opacity:1}
-  }
-  button:focus-visible,.fav:focus-visible,.cat:focus-visible,.bell-btn:focus-visible{outline:3px solid var(--palm);outline-offset:2px}
-
-  @media(min-width:700px){
-    .phone{box-shadow:0 24px 70px rgba(0,0,0,.45);border-radius:30px;margin:30px auto;min-height:850px}
-    .bottom{position:absolute;border-radius:0 0 30px 30px}
-  }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#143528">
+  <title>Bite | Good food, delivered in Lafia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#14271e;--green:#246846;--lime:#daf375;--cream:#fbfaf5;--paper:#fff;--muted:#738178;--line:#e7e8e0;--orange:#ed6d41;--shadow:0 18px 48px rgba(20,39,30,.11)}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--cream);color:var(--ink);font-family:"DM Sans",Arial,sans-serif} button,input{font:inherit}button{cursor:pointer}.container{width:min(1160px,calc(100% - 40px));margin:auto}
+    .topline{background:var(--ink);color:#dce6dc;font-size:13px}.topline .container{min-height:38px;display:flex;align-items:center;justify-content:space-between;gap:15px}.topline p{margin:0}.topline strong{color:var(--lime)}
+    .nav{height:82px;display:flex;align-items:center;justify-content:space-between;gap:25px}.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font:700 31px "Playfair Display",serif;letter-spacing:-1.5px}.brand-mark{width:31px;height:31px;border-radius:50% 50% 50% 8px;background:var(--orange);position:relative;transform:rotate(-18deg)}.brand-mark:after{content:"";position:absolute;width:9px;height:9px;border-radius:50%;background:var(--cream);right:5px;top:5px}.links{display:flex;gap:28px}.links a{text-decoration:none;color:#53635a;font-size:14px;font-weight:700}.links a:hover{color:var(--green)}.cart-button{border:0;border-radius:13px;background:var(--ink);color:#fff;padding:12px 16px;font-weight:700;display:flex;align-items:center;gap:9px}.cart-count{min-width:20px;height:20px;display:grid;place-items:center;border-radius:50%;background:var(--lime);color:var(--ink);font-size:12px}
+    .hero{min-height:430px;margin:5px 0 76px;padding:64px 7.5% 58px;color:#fff;border-radius:28px;overflow:hidden;background:linear-gradient(100deg,rgba(13,39,27,.98) 4%,rgba(20,55,40,.86) 55%,rgba(20,55,40,.1)),url("https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=85") center/cover;position:relative}.hero:after{content:"";position:absolute;width:410px;height:410px;border-radius:50%;background:var(--lime);right:-150px;bottom:-250px;opacity:.28}.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--lime);font-size:12px;font-weight:700;letter-spacing:1.2px}.eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--lime)}h1{max-width:610px;margin:17px 0;font:700 clamp(43px,6vw,72px)/.98 "Playfair Display",serif;letter-spacing:-3.2px}.hero-copy{max-width:455px;line-height:1.65;color:#d5ddd6;margin:0 0 27px}.search{width:min(560px,100%);height:62px;display:flex;align-items:center;gap:11px;padding:7px 8px 7px 19px;background:#fff;border-radius:16px;box-shadow:0 9px 24px rgba(0,0,0,.16)}.search span{color:var(--muted);font-size:19px}.search input{min-width:0;flex:1;border:0;outline:0;color:var(--ink)}.search input::placeholder{color:#9ca79f}.search button{border:0;border-radius:11px;background:var(--orange);color:#fff;padding:13px 17px;font-weight:700}
+    .section-heading{display:flex;align-items:end;justify-content:space-between;gap:18px;margin:0 0 22px}.section-heading h2{margin:0;font:700 33px/1.1 "Playfair Display",serif;letter-spacing:-1.3px}.section-heading p{margin:0;color:var(--muted);font-size:14px}.categories{display:grid;grid-template-columns:repeat(6,1fr);gap:13px;margin-bottom:78px}.category{padding:13px 10px;background:var(--paper);border:1px solid var(--line);border-radius:18px;color:var(--ink);font-size:13px;font-weight:700;transition:.2s}.category:hover,.category.active{transform:translateY(-3px);background:var(--ink);color:#fff;box-shadow:var(--shadow)}.category .emoji{display:grid;place-items:center;width:45px;height:45px;margin:0 auto 8px;border-radius:14px;background:#f6f2e8;font-size:24px}.category.active .emoji{background:#345f4d}
+    .promo{position:relative;display:flex;align-items:center;min-height:210px;padding:32px 42px;margin-bottom:76px;background:#dceca4;border-radius:25px;overflow:hidden}.promo:after{content:"🍲";position:absolute;right:3%;bottom:-53px;font-size:174px;filter:drop-shadow(0 15px 10px rgba(20,35,28,.2))}.promo small{color:var(--green);font-weight:700;letter-spacing:1px}.promo h2{max-width:485px;margin:7px 0 0;font:700 35px/1.05 "Playfair Display",serif;letter-spacing:-1px}.promo code{padding:8px 11px;background:#fff;border-radius:9px;font-family:inherit;font-weight:700}
+    .restaurants{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-bottom:80px}.restaurant{overflow:hidden;background:var(--paper);border:1px solid var(--line);border-radius:21px;box-shadow:0 8px 20px rgba(20,35,28,.035);transition:.25s}.restaurant:hover{transform:translateY(-6px);box-shadow:var(--shadow)}.restaurant.hidden{display:none}.restaurant-image{height:190px;background:center/cover;position:relative}.badge{position:absolute;z-index:1;top:13px;left:13px;padding:6px 9px;background:#fff;color:var(--green);border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.5px}.heart{position:absolute;z-index:1;top:13px;right:13px;width:35px;height:35px;border:0;border-radius:50%;background:rgba(255,255,255,.94);font-size:18px}.restaurant-body{padding:17px}.restaurant-title{display:flex;align-items:start;justify-content:space-between;gap:10px}.restaurant h3{margin:0 0 6px;font-size:17px}.rating{color:var(--green);font-size:13px;font-weight:700;white-space:nowrap}.meta{color:var(--muted);font-size:12px}.restaurant-footer{display:flex;align-items:center;justify-content:space-between;margin-top:15px}.price{font-size:13px;font-weight:700}.add{width:34px;height:31px;border:0;border-radius:9px;background:#edf4d0;color:var(--green);font-size:20px;font-weight:700}
+    footer{padding:46px 0 28px;background:var(--ink);color:#d5ddd6}.footer-row{display:flex;align-items:center;justify-content:space-between;gap:25px;padding-bottom:28px;border-bottom:1px solid #385345}.footer-row .brand{color:#fff}.footer-row p{margin:6px 0 0;color:#aabdaf;font-size:14px}.footer-bottom{display:flex;justify-content:space-between;padding-top:22px;color:#8da195;font-size:12px}
+    .drawer{position:fixed;z-index:20;inset:0 0 0 auto;display:flex;flex-direction:column;width:min(410px,100%);padding:25px;background:#fff;box-shadow:-12px 0 35px rgba(0,0,0,.18);transform:translateX(105%);transition:.28s}.drawer.open{transform:none}.drawer-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:18px;border-bottom:1px solid var(--line)}.drawer h2{margin:0;font:700 28px "Playfair Display",serif}.close{width:35px;height:35px;border:0;border-radius:50%;background:#f1f3eb;font-size:20px}.cart-items{flex:1;overflow:auto;padding:8px 0}.cart-item{display:flex;justify-content:space-between;gap:10px;padding:15px 0;border-bottom:1px solid var(--line)}.cart-item small{display:block;margin-top:4px;color:var(--muted)}.remove{padding:0;border:0;background:none;color:var(--orange);font-size:12px}.total{display:flex;justify-content:space-between;margin:18px 0;font-weight:700}.checkout{width:100%;padding:17px;border:0;border-radius:14px;background:var(--green);color:#fff;font-weight:700;font-size:15px}.toast{position:fixed;z-index:30;left:50%;bottom:28px;padding:13px 18px;background:var(--ink);color:#fff;border-radius:12px;font-size:14px;box-shadow:var(--shadow);transform:translate(-50%,100px);transition:.3s}.toast.show{transform:translate(-50%,0)}
+    @media(max-width:760px){.container{width:min(100% - 28px,570px)}.topline .container p:last-child,.links{display:none}.nav{height:70px}.hero{min-height:455px;margin-top:0;margin-bottom:54px;padding:51px 24px 35px;border-radius:22px;background-position:62% center}.hero:after{display:none}h1{letter-spacing:-2px}.categories{grid-template-columns:repeat(3,1fr);margin-bottom:54px}.promo{min-height:220px;padding:27px 25px;margin-bottom:54px}.promo:after{right:-22px;bottom:-33px;font-size:120px}.promo h2{max-width:310px;font-size:29px}.restaurants{grid-template-columns:1fr;gap:15px;padding-bottom:55px}.restaurant-image{height:185px}.section-heading h2{font-size:29px}.section-heading p{display:none}.footer-row,.footer-bottom{flex-direction:column;align-items:flex-start}.footer-row{gap:14px}}
+  </style>
 </head>
 <body>
-<main class="phone">
-  <div class="corner-blob blob-tl" aria-hidden="true"></div>
-  <div class="corner-blob blob-tr" aria-hidden="true"></div>
-  <div class="corner-blob blob-tl" aria-hidden="true"></div>
-<div class="bg-circle-green" aria-hidden="true"></div>
-<div class="corner-blob blob-tr" aria-hidden="true"></div>
-  <section class="screen">
-
-<header class="top">
-  <div class="brand-stack"> </div>
-      <div class="brand-stack">
-        <img class="bite-logo" src="assets/bite-logo.png" alt="Bite logo">
-        <span class="loc-name">Lafia</span>
-      </div>
-      <div class="top-actions">
-        <div style="position:relative">
-          <button class="bell-btn" aria-label="Notifications">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C9.5 3 7.5 5 7.5 7.8V11.5C7.5 12.6 7.1 13.6 6.3 14.4L5 15.7H19L17.7 14.4C16.9 13.6 16.5 12.6 16.5 11.5V7.8C16.5 5 14.5 3 12 3Z"/><path d="M10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18"/></svg>
-          </button>
-          <div class="bell-dot"></div>
-        </div>
-     </div>
-    </header>
-
-    <div class="hero-wrap">
-      <svg class="hero-bowl" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M16 5C16 5 13.5 8.5 16 12" opacity=".55"><animate attributeName="d" dur="3.2s" repeatCount="indefinite" values="M16 5C16 5 13.5 8.5 16 12;M16 5C16 5 18.5 8.5 16 12;M16 5C16 5 13.5 8.5 16 12"/></path>
-        <path d="M24 3C24 3 21.5 6.5 24 10"><animate attributeName="d" dur="3.2s" begin=".3s" repeatCount="indefinite" values="M24 3C24 3 21.5 6.5 24 10;M24 3C24 3 26.5 6.5 24 10;M24 3C24 3 21.5 6.5 24 10"/></path>
-        <path d="M32 5C32 5 29.5 8.5 32 12" opacity=".55"><animate attributeName="d" dur="3.2s" begin=".6s" repeatCount="indefinite" values="M32 5C32 5 29.5 8.5 32 12;M32 5C32 5 34.5 8.5 32 12;M32 5C32 5 29.5 8.5 32 12"/></path>
-        <path d="M8 22C8 22 8 38 24 38C40 38 40 22 40 22" fill="var(--cream)"/>
-        <ellipse cx="24" cy="22" rx="16" ry="3.4" fill="var(--egusi)"/>
-      </svg>
-
-      <p class="sub">Order from Lafia's best kitchens &amp; chop spots, delivered fast.</p>
-      <div class="search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="19" y1="19" x2="15.3" y2="15.3"/></svg>
-        Search food, chop spots...
-      </div>
-    </div>
-
-    <div class="premium-hero">
-      <div class="ring"><img src="assets/hero-dish.jpg" alt="Featured Bite dish"></div>
-      <img class="premium-logo" src="assets/bite-logo.png" alt="Bite logo">
-      <p class="tagline">Every Bite Matters.</p>
-    </div>
-
-    <div class="section-head"><span class="eyebrow">Quick picks</span><span class="see-all">Swipe →</span></div>
-<div class="rail price-picks">
-  <div class="price-pick" tabindex="0">
-    <div class="ring-sm"><img src="assets/hero-dish.jpg" alt="Jollof rice"></div>
-    <span class="price-tag">₦1,200</span>
-  </div>
-  <div class="price-pick" tabindex="0">
-    <div class="ring-sm"><img src="assets/hero-dish.jpg" alt="Suya"></div>
-    <span class="price-tag">₦1,500</span>
-  </div>
-  <div class="price-pick" tabindex="0">
-    <div class="ring-sm"><img src="assets/hero-dish.jpg" alt="Chicken"></div>
-    <span class="price-tag">₦2,000</span>
-  </div>
-  <div class="price-pick" tabindex="0">
-    <div class="ring-sm"><img src="assets/hero-dish.jpg" alt="Pizza slice"></div>
-    <span class="price-tag">₦2,500</span>
-  </div>
-  <div class="price-pick" tabindex="0">
-    <div class="ring-sm"><img src="assets/hero-dish.jpg" alt="Drink"></div>
-    <span class="price-tag">₦800</span>
-  </div>
-</div>
-    
-    <div class="section-head"><span class="eyebrow">Categories</span><span class="see-all">Swipe →</span></div>
-    <div class="rail cats">
-      <div class="cat" tabindex="0">
-        <div class="cat-badge" style="background:var(--pepper)">
-          <svg viewBox="0 0 48 48" fill="none" stroke="var(--cream)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6C17 6 15 9 17 12"/><path d="M24 4C24 4 22 7 24 10"/><path d="M31 6C31 6 29 9 31 12"/><path d="M8 22C8 22 8 38 24 38C40 38 40 22 40 22"/><ellipse cx="24" cy="22" rx="16" ry="3.2"/></svg>
-        </div>
-        <label>Rice</label>
-      </div>
-      <div class="cat" tabindex="0">
-        <div class="cat-badge" style="background:var(--egusi)">
-          <svg viewBox="0 0 48 48" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="24" x2="44" y2="24"/><rect x="9" y="18" width="7" height="12" rx="2" transform="rotate(-6 12.5 24)"/><rect x="20.5" y="18" width="7" height="12" rx="2" transform="rotate(5 24 24)"/><rect x="32" y="18" width="7" height="12" rx="2" transform="rotate(-4 35.5 24)"/></svg>
-        </div>
-        <label>Suya</label>
-      </div>
-      <div class="cat" tabindex="0">
-        <div class="cat-badge" style="background:var(--palm)">
-          <svg viewBox="0 0 48 48" fill="none" stroke="var(--cream)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="17" cy="19" rx="12" ry="9" transform="rotate(-25 17 19)"/><rect x="26" y="30" width="19" height="7.5" rx="3.7" transform="rotate(42 35.5 33.7)"/></svg>
-        </div>
-        <label>Chicken</label>
-      </div>
-      <div class="cat" tabindex="0">
-        <div class="cat-badge" style="background:var(--ink)">
-          <svg viewBox="0 0 48 48" fill="none" stroke="var(--cream)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 40Q24 48 42 40"/><path d="M24 6L8 40H40Z"/><circle cx="21" cy="24" r="1.6" fill="var(--cream)" stroke="none"/><circle cx="27" cy="30" r="1.6" fill="var(--cream)" stroke="none"/></svg>
-        </div>
-        <label>Pizza</label>
-      </div>
-      <div class="cat" tabindex="0">
-        <div class="cat-badge" style="background:var(--pepper)">
-          <svg viewBox="0 0 48 48" fill="none" stroke="var(--cream)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20C8 12 16 8 24 8C32 8 40 12 40 20"/><path d="M8 24Q12 20 16 24Q20 20 24 24Q28 20 32 24Q36 20 40 24"/><rect x="8" y="26" width="32" height="7" rx="3"/><rect x="8" y="35" width="32" height="7" rx="3"/></svg>
-        </div>
-        <label>Burgers</label>
-      </div>
-      <div class="cat" tabindex="0">
-        <div class="cat-badge" style="background:var(--egusi)">
-          <svg viewBox="0 0 48 48" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14H33L29 40H19Z"/><ellipse cx="24" cy="14" rx="9" ry="2.6"/><line x1="25" y1="3" x2="21" y2="14"/></svg>
-        </div>
-        <label>Drinks</label>
-      </div>
-    </div>
-
-    <div class="section-head"><span class="eyebrow">Deals for you</span><span class="see-all">Swipe →</span></div>
-    <div class="rail deals">
-      <article class="board">
-        <small>WELCOME TO BITE</small>
-        <h3>First order? We got you.</h3>
-        <button class="cta">Order now — ₦500 off</button>
-        <svg class="board-icon" viewBox="0 0 48 48" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6C17 6 15 9 17 12" opacity=".5"/><path d="M24 4C24 4 22 7 24 10"/><path d="M31 6C31 6 29 9 31 12" opacity=".5"/><path d="M8 22C8 22 8 38 24 38C40 38 40 22 40 22" fill="var(--cream)"/><ellipse cx="24" cy="22" rx="16" ry="3.2" fill="var(--egusi)"/></svg>
-      </article>
-      <article class="board">
-        <small>NEW AROUND YOU</small>
-        <h3>Taste Lafia's best.</h3>
-        <button class="cta">Explore spots</button>
-        <svg class="board-icon" viewBox="0 0 48 48" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="17" cy="19" rx="12" ry="9" transform="rotate(-25 17 19)" fill="var(--egusi)"/><rect x="26" y="30" width="19" height="7.5" rx="3.7" transform="rotate(42 35.5 33.7)" fill="var(--cream)"/></svg>
-      </article>
-    </div>
-
-    <div class="section-head"><span class="eyebrow">Popular near you</span><span class="see-all">See all</span></div>
-    <div class="popular">
-
-      <article class="spot">
-        <div class="dish-badge" style="background:var(--egusi)">
-          <svg viewBox="0 0 48 48" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C17 8 15 11 17 14"/><path d="M24 6C24 6 22 9 24 12"/><path d="M31 8C31 8 29 11 31 14"/><path d="M8 22C8 22 8 38 24 38C40 38 40 22 40 22"/><ellipse cx="24" cy="22" rx="16" ry="3.2"/></svg>
-        </div>
-        <div class="spot-body">
-          <div class="spot-top">
-            <h3>Lafia Kitchen</h3>
-            <button class="fav" aria-label="Save restaurant" onclick="this.classList.toggle('on')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20.5C12 20.5 4.5 15.5 4.5 9.8C4.5 6.8 6.9 4.5 9.8 4.5C11.2 4.5 12 5.3 12 5.3C12 5.3 12.8 4.5 14.2 4.5C17.1 4.5 19.5 6.8 19.5 9.8C19.5 15.5 12 20.5 12 20.5Z"/></svg>
-            </button>
-          </div>
-          <div class="meta">
-            <svg viewBox="0 0 24 24"><path d="M12 2L14.6 8.6L21.8 9.1L16.2 13.6L18 20.6L12 16.7L6 20.6L7.8 13.6L2.2 9.1L9.4 8.6Z" fill="currentColor"/></svg>
-            4.8 <span class="dot"></span> 20–30 min <span class="dot"></span> ₦500
-          </div>
-          <span class="tag">LOCAL FAVOURITE</span>
-        </div>
-      </article>
-
-      <article class="spot">
-        <div class="dish-badge" style="background:var(--pepper)">
-          <svg viewBox="0 0 48 48" fill="none" stroke="var(--cream)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20C8 12 16 8 24 8C32 8 40 12 40 20"/><path d="M8 24Q12 20 16 24Q20 20 24 24Q28 20 32 24Q36 20 40 24"/><rect x="8" y="26" width="32" height="7" rx="3"/><rect x="8" y="35" width="32" height="7" rx="3"/></svg>
-        </div>
-        <div class="spot-body">
-          <div class="spot-top">
-            <h3>Campus Bites</h3>
-            <button class="fav" aria-label="Save restaurant" onclick="this.classList.toggle('on')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20.5C12 20.5 4.5 15.5 4.5 9.8C4.5 6.8 6.9 4.5 9.8 4.5C11.2 4.5 12 5.3 12 5.3C12 5.3 12.8 4.5 14.2 4.5C17.1 4.5 19.5 6.8 19.5 9.8C19.5 15.5 12 20.5 12 20.5Z"/></svg>
-            </button>
-          </div>
-          <div class="meta">
-            <svg viewBox="0 0 24 24"><path d="M12 2L14.6 8.6L21.8 9.1L16.2 13.6L18 20.6L12 16.7L6 20.6L7.8 13.6L2.2 9.1L9.4 8.6Z" fill="currentColor"/></svg>
-            4.7 <span class="dot"></span> 15–25 min <span class="dot"></span> ₦400
-          </div>
-          <span class="tag">FAST DELIVERY</span>
-        </div>
-      </article>
-
-      <article class="spot">
-        <div class="dish-badge" style="background:var(--ink)">
-          <svg viewBox="0 0 48 48" fill="none" stroke="var(--cream)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="24" x2="44" y2="24"/><rect x="9" y="18" width="7" height="12" rx="2" transform="rotate(-6 12.5 24)"/><rect x="20.5" y="18" width="7" height="12" rx="2" transform="rotate(5 24 24)"/><rect x="32" y="18" width="7" height="12" rx="2" transform="rotate(-4 35.5 24)"/></svg>
-        </div>
-        <div class="spot-body">
-          <div class="spot-top">
-            <h3>Suya Corner</h3>
-            <button class="fav" aria-label="Save restaurant" onclick="this.classList.toggle('on')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20.5C12 20.5 4.5 15.5 4.5 9.8C4.5 6.8 6.9 4.5 9.8 4.5C11.2 4.5 12 5.3 12 5.3C12 5.3 12.8 4.5 14.2 4.5C17.1 4.5 19.5 6.8 19.5 9.8C19.5 15.5 12 20.5 12 20.5Z"/></svg>
-            </button>
-          </div>
-          <div class="meta">
-            <svg viewBox="0 0 24 24"><path d="M12 2L14.6 8.6L21.8 9.1L16.2 13.6L18 20.6L12 16.7L6 20.6L7.8 13.6L2.2 9.1L9.4 8.6Z" fill="currentColor"/></svg>
-            4.9 <span class="dot"></span> 10–20 min <span class="dot"></span> ₦350
-          </div>
-          <span class="tag">SPICY PICK</span>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-  <nav class="bottom">
-    <div class="nav active">
-      <div class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11L12 4L21 11V20H14V14H10V20H3V11Z"/></svg></div>
-      Home
-    </div>
-    <div class="nav">
-      <div class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="19" y1="19" x2="15.3" y2="15.3"/></svg></div>
-      Explore
-    </div>
-    <div class="nav">
-      <div class="nav-ico">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8H19L18 20H6L5 8Z"/><path d="M8 8V6C8 3.8 9.8 2 12 2C14.2 2 16 3.8 16 6V8"/></svg>
-        <span class="cart-count">2</span>
-      </div>
-      Cart
-    </div>
-    <div class="nav">
-      <div class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="1.5"/><line x1="9" y1="7.5" x2="15" y2="7.5"/><line x1="9" y1="11.5" x2="15" y2="11.5"/><line x1="9" y1="15.5" x2="13" y2="15.5"/></svg></div>
-      Orders
-    </div>
-    <div class="nav">
-      <div class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"/><path d="M5 21C5 16.8 8.1 14 12 14C15.9 14 19 16.8 19 21"/></svg></div>
-      Profile
-    </div>
-  </nav>
-</main>
+  <div class="topline"><div class="container"><p>Delivering happiness across <strong>Lafia, Nasarawa</strong></p><p>Open today · 8:00am — 10:00pm</p></div></div>
+  <header class="container nav"><a class="brand" href="#home"><span class="brand-mark"></span>Bite</a><nav class="links"><a href="#restaurants">Restaurants</a><a href="#categories">Categories</a><a href="#offers">Offers</a></nav><button class="cart-button" id="cartButton">Bag <span class="cart-count" id="cartCount">0</span></button></header>
+  <main class="container" id="home">
+    <section class="hero"><div class="eyebrow">LAFIA'S FOOD MARKETPLACE</div><h1>Good food. Right at your door.</h1><p class="hero-copy">Your favourite local meals, trusted kitchens and little treats—delivered while they're still delicious.</p><form class="search" id="searchForm"><span>⌕</span><input id="searchInput" aria-label="Search restaurants" placeholder="What are you craving today?"><button>Search</button></form></section>
+    <section id="categories"><div class="section-heading"><div><h2>Made for every appetite</h2><p>Choose a mood. We'll handle the delicious part.</p></div></div><div class="categories"><button class="category active" data-category="all"><span class="emoji">🍽️</span>All meals</button><button class="category" data-category="rice"><span class="emoji">🍛</span>Rice dishes</button><button class="category" data-category="grill"><span class="emoji">🍗</span>Grills</button><button class="category" data-category="local"><span class="emoji">🥘</span>Local food</button><button class="category" data-category="snacks"><span class="emoji">🍔</span>Quick bites</button><button class="category" data-category="drinks"><span class="emoji">🥤</span>Drinks</button></div></section>
+    <section class="promo" id="offers"><div><small>FIRST ORDER TREAT</small><h2>Enjoy ₦1,000 off your first delicious order.</h2><p>Use code <code>HELLOBITE</code> at checkout</p></div></section>
+    <section id="restaurants"><div class="section-heading"><div><h2>Popular around Lafia</h2><p>Freshly prepared by restaurants people love.</p></div><p id="resultText">6 restaurants nearby</p></div><div class="restaurants" id="restaurantGrid">
+      <article class="restaurant" data-category="rice local" data-name="lafia kitchen jollof rice"><div class="restaurant-image" style="background-image:url('https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=850&q=80')"><span class="badge">LOCAL FAVOURITE</span><button class="heart" aria-label="Save Lafia Kitchen">♡</button></div><div class="restaurant-body"><div class="restaurant-title"><div><h3>Lafia Kitchen</h3><div class="meta">Nigerian · Rice & soups</div></div><span class="rating">★ 4.9</span></div><div class="restaurant-footer"><span class="price">20–30 min · ₦500 delivery</span><button class="add" data-item="Lafia Kitchen" data-price="3200">+</button></div></div></article>
+      <article class="restaurant" data-category="grill snacks" data-name="firewood grill chicken"><div class="restaurant-image" style="background-image:url('https://images.unsplash.com/photo-1598514983318-2f64f8f4796c?auto=format&fit=crop&w=850&q=80')"><span class="badge">TOP RATED</span><button class="heart" aria-label="Save Firewood Grill">♡</button></div><div class="restaurant-body"><div class="restaurant-title"><div><h3>Firewood Grill</h3><div class="meta">Grills · Shawarma</div></div><span class="rating">★ 4.8</span></div><div class="restaurant-footer"><span class="price">25–35 min · ₦600 delivery</span><button class="add" data-item="Firewood Grill" data-price="3500">+</button></div></div></article>
+      <article class="restaurant" data-category="local rice" data-name="mama zainab amala soup"><div class="restaurant-image" style="background-image:url('https://images.unsplash.com/photo-1631515242808-497c3fbd3972?auto=format&fit=crop&w=850&q=80')"><span class="badge">FAST DELIVERY</span><button class="heart" aria-label="Save Mama Zainab's">♡</button></div><div class="restaurant-body"><div class="restaurant-title"><div><h3>Mama Zainab's</h3><div class="meta">Local delicacies</div></div><span class="rating">★ 4.8</span></div><div class="restaurant-footer"><span class="price">15–25 min · ₦400 delivery</span><button class="add" data-item="Mama Zainab's" data-price="2800">+</button></div></div></article>
+      <article class="restaurant" data-category="snacks drinks" data-name="campus bites burger juice"><div class="restaurant-image" style="background-image:url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=850&q=80')"><span class="badge">STUDENT PICK</span><button class="heart" aria-label="Save Campus Bites">♡</button></div><div class="restaurant-body"><div class="restaurant-title"><div><h3>Campus Bites</h3><div class="meta">Burgers · Drinks</div></div><span class="rating">★ 4.7</span></div><div class="restaurant-footer"><span class="price">15–25 min · ₦400 delivery</span><button class="add" data-item="Campus Bites" data-price="2500">+</button></div></div></article>
+      <article class="restaurant" data-category="rice local" data-name="savoury pot fried rice"><div class="restaurant-image" style="background-image:url('https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=850&q=80')"><span class="badge">NEW ON BITE</span><button class="heart" aria-label="Save Savoury Pot">♡</button></div><div class="restaurant-body"><div class="restaurant-title"><div><h3>Savoury Pot</h3><div class="meta">Rice · Comfort food</div></div><span class="rating">★ 4.6</span></div><div class="restaurant-footer"><span class="price">25–40 min · ₦500 delivery</span><button class="add" data-item="Savoury Pot" data-price="3000">+</button></div></div></article>
+      <article class="restaurant" data-category="drinks snacks" data-name="the juice bar smoothie"><div class="restaurant-image" style="background-image:url('https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=850&q=80')"><span class="badge">FEEL-GOOD FOOD</span><button class="heart" aria-label="Save The Juice Bar">♡</button></div><div class="restaurant-body"><div class="restaurant-title"><div><h3>The Juice Bar</h3><div class="meta">Smoothies · Light bites</div></div><span class="rating">★ 4.8</span></div><div class="restaurant-footer"><span class="price">15–20 min · ₦350 delivery</span><button class="add" data-item="The Juice Bar" data-price="2200">+</button></div></div></article>
+    </div></section>
+  </main>
+  <footer><div class="container"><div class="footer-row"><div><a class="brand" href="#home"><span class="brand-mark"></span>Bite</a><p>Deliciously local. Proudly Lafia.</p></div><p>Questions? <strong>hello@bite.ng</strong></p></div><div class="footer-bottom"><span>© 2026 Bite Lafia</span><span>Made with care in Nasarawa</span></div></div></footer>
+  <aside class="drawer" id="drawer" aria-label="Your bag"><div class="drawer-head"><h2>Your bag</h2><button class="close" id="closeDrawer">×</button></div><div class="cart-items" id="cartItems"><p class="meta">Your bag is waiting for something tasty.</p></div><div><div class="total"><span>Total</span><span id="total">₦0</span></div><button class="checkout" id="checkout">Place order</button></div></aside><div class="toast" id="toast"></div>
+  <script>
+    const cart=[],count=document.querySelector("#cartCount"),items=document.querySelector("#cartItems"),total=document.querySelector("#total"),drawer=document.querySelector("#drawer"),toast=document.querySelector("#toast"),money=n=>"₦"+n.toLocaleString("en-NG");
+    function notice(text){toast.textContent=text;toast.classList.add("show");setTimeout(()=>toast.classList.remove("show"),2500)}
+    function render(){count.textContent=cart.length;items.innerHTML=cart.length?cart.map((x,i)=>`<div class="cart-item"><div><strong>${x.name}</strong><small>Chef's popular pick</small></div><div><strong>${money(x.price)}</strong><br><button class="remove" data-remove="${i}">Remove</button></div></div>`).join(""):'<p class="meta">Your bag is waiting for something tasty.</p>';total.textContent=money(cart.reduce((s,x)=>s+x.price,0));document.querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>{cart.splice(b.dataset.remove,1);render()})}
+    document.querySelectorAll(".add").forEach(b=>b.onclick=()=>{cart.push({name:b.dataset.item,price:+b.dataset.price});render();notice(b.dataset.item+" added to your bag")});document.querySelector("#cartButton").onclick=()=>drawer.classList.add("open");document.querySelector("#closeDrawer").onclick=()=>drawer.classList.remove("open");document.querySelector("#checkout").onclick=()=>{if(!cart.length)return notice("Add a meal before placing your order");cart.length=0;render();drawer.classList.remove("open");notice("Order placed! Your kitchen is preparing it.")};
+    const cards=[...document.querySelectorAll(".restaurant")],result=document.querySelector("#resultText");function filter(){const q=document.querySelector("#searchInput").value.toLowerCase(),cat=document.querySelector(".category.active").dataset.category;let n=0;cards.forEach(c=>{const yes=(cat==="all"||c.dataset.category.includes(cat))&&c.dataset.name.includes(q);c.classList.toggle("hidden",!yes);if(yes)n++});result.textContent=n+" restaurant"+(n===1?"":"s")+" nearby"}document.querySelectorAll(".category").forEach(b=>b.onclick=()=>{document.querySelector(".category.active").classList.remove("active");b.classList.add("active");filter()});document.querySelector("#searchInput").oninput=filter;document.querySelector("#searchForm").onsubmit=e=>{e.preventDefault();document.querySelector("#restaurants").scrollIntoView({behavior:"smooth"});filter()};document.querySelectorAll(".heart").forEach(b=>b.onclick=()=>{b.textContent=b.textContent==="♡"?"♥":"♡";b.style.color=b.textContent==="♥"?"#ed6d41":""});
+  </script>
 </body>
 </html>
